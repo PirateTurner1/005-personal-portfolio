@@ -4,19 +4,18 @@ let mainArea = document.querySelector('main')
 
 planets.forEach(planet => {
     let planetDiv = document.createElement('div')
-    let planetDiv = document.createElement('h3')
-    let planetDiv = document.createElement('img')
+    let planetName = document.createElement('h3')
+    let planetPic = document.createElement('img')
 
-    let planetNum = getPlanetNum { planet.url }
+    let planetNum = getPlanetNum(planet.url)
+
     planetName.textContent = planet.name
     planetPic.src = `http://starwars-visualguide.com/assets/img/planets/${planetNum}.jpg`
 
-    planetPic.onerror = `this.src='../images/starwarsposter.png'`
-
-
+    //planetPic.onerror = `this.src='../images/starwarsposter.png'`
     planetPic.addEventListener('error', (event) => {
         let badImage = event.target
-        badImage.src = '../images/starwarsposter.png' //placeholder for unfound images
+        badImage.src = '../images/starwarsposter.png' //placeholder for un-found images
     })
 
     planetDiv.appendChild(planetName)
@@ -27,5 +26,8 @@ planets.forEach(planet => {
 
 function getCharNumber(charURL) {
     let end = charURL.lastIndexOf('/')
-    letcharID = charURL.substring(end - 2, end)
-}
+    let charID = charURL.substring(end - 2, end)
+    if (charID.indexOf('/') !== -1) {
+        return charID.slice(1, 2)
+    } else {
+        return charID

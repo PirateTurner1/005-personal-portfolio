@@ -74,37 +74,62 @@ let maleButton = document.createElement('button')
 maleButton.textContent = "male Characters"
 
 maleButton.addEventListener('click', () => {
-    femaleCharacters.forEach((item) => {
-        let matchedDiv = allDivs.find((oneDiv) => {
-                return oneDiv.firstChild.textContent === character.name
-            })
-            //if (matchedDiv.getAttribute('style') === "display: none;") {
-            //console.log(matchedDiv)
-        matchedDiv.setAttribute("style", "display: revert;")
-    })
-    matchedDiv.setAttribute("style", "display:none;")
-        //matchedDiv.classList.add('animated', 'fadeOutDownBig delay-2s')
+    deleteNode()
+    showCharArray(maleCharacters)
+        /*    femaleCharacters.forEach((item) => {
+                matchedDiv = allDivs.find((oneDiv) => {
+                    return oneDiv.firstChild.textContent === character.name
+                })
+                if (matchedDiv.getAttribute('style') === "display: none;") {
+                    console.log('all female characters are gone')
+                    matchedDiv.setAttribute("style", "display: revert;") * /
+                } else {
+                    matchedDiv.setAttribute("style", "display:none;")
+                }
+            })*/
+
+    //matchedDiv.classList.add('animated', 'fadeOutDownBig delay-2s')
 })
 
 let femaleButton = document.createElement('button')
 femaleButton.textContent = 'Female Characters'
 femaleButton.addEventListener('click', () => {
-    maleCharacters.forEach((item) => {
-        let matchedDiv = allDivs.find((oneDiv) => {
-            return oneDiv.firstChild.textContent === Character.name
-        })
+    deleteNode()
+    showCharArray(femaleCharacters)
+        /*maleCharacters.forEach((item) => {
+            let matchedDiv = allDivs.find((oneDiv) => {
+                return oneDiv.firstChild.textContent === Character.name
+            })
 
-        matchedDiv.setAttribute("style", "display:none;")
-            //matchedDiv.classList.add('animated', 'fadeOutDownBig delay-2s')
-    })
+            matchedDiv.setAttribute("style", "display:revert;")
+                //matchedDiv.classList.add('animated', 'fadeOutDownBig delay-2s')
+                
+        })*/
 })
 
-mainHeader.appendChild(maleButton)
-mainHeader.appendChild(femaleButton)
+let othersButton = document.createElement('button')
+otherButton.textContent = 'Other Characters'
+otherButton.addEventListener('click', () => {
+    deleteNode()
+    showCharArray(otherCharacters)
 
-const maleCharacters = people.filter(person => person.gender === 'male')
-const femaleCharacters = people.filter(person => person.gender === 'female')
-const otherCharacters = people.filter(person => person.gender !== 'female' && person.gender !== 'male')
+})
 
-console.log(maleCharacters)
-console.log(femaleCharacters)
+function deleteNode() {
+    while (mainArea.firstChild) {
+        mainArea.removeChild(mainArea.firstChild)
+    }
+
+    mainHeader.appendChild(maleButton)
+    mainHeader.appendChild(femaleButton)
+    mainHeader.appendChild(OthersButton)
+
+
+    const maleCharacters = people.filter(person => person.gender === 'male')
+    const femaleCharacters = people.filter(person => person.gender === 'female')
+    const otherCharacters = people.filter(person => person.gender !== 'female' && person.gender !== 'male')
+
+    console.log(maleCharacters)
+
+
+    console.log(femaleCharacters)

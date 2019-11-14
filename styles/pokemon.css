@@ -1,0 +1,67 @@
+body {
+    background-color: grey;
+}
+
+main {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    grid-gap: 2rem;
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    margin-bottom: 6rem;
+}
+
+.picDiv {
+    width: 100%;
+}
+
+.charDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.scene {
+    width: 200px;
+    height: 260px;
+    border: 1px solid #CCC;
+    margin: 40px 0;
+    perspective: 600px;
+}
+
+.card {
+    width: 100%;
+    height: 100%;
+    transition: transform 1s;
+    transform-style: preserve-3d;
+    cursor: pointer;
+    position: relative;
+}
+
+.card.is-flipped {
+    transform: rotateY(180deg);
+}
+
+.card__face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    line-height: 260px;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    font-size: 40px;
+    backface-visibility: hidden;
+}
+
+.card__face--front {
+    background: red;
+}
+
+.card__face--back {
+    background: blue;
+    transform: rotateY(180deg);
+}
+
+p {}
