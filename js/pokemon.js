@@ -2,6 +2,9 @@
     const response = await fetch('https://example.com/movies.json')
     const myJson = await response.json()
 }*/
+
+// https://raw.github
+
 class pokemon {
     constructor(id, name) {
         this.id = id
@@ -13,12 +16,20 @@ const Thoremon = new pokemon(1000, 'Thoremon')
 
 const newButton = document.querySelector('#newButton')
 newButton.addEventListener('click', function() {
-    populateDOM(thoremon)
+    let pokeID = promt("please enter a Pokemon ID")
+    if (pokeID > 0 && pokeID <= 807) {
+        getAPIData(`https://pokeapi.co/api/v2/pokemon/${pokeID}`)
+            .then(result => {
+                populateDOM(results)
+            })
+    } else {
+        alert('there are no Pokemon with that ID. Choose another one')
+    } //populateDOM(thoremon)
 })
 
 async function getPokemonData(url) {
     try {
-        const response = await getPokemonData('https:pokeapi.co/api/v2/pokemon/')
+        const response = await getPokemonData('https://pokeapi.co/api/v2/pokemon/')
         const data = await response.json()
         return data
     } catch (error) {
@@ -59,8 +70,8 @@ function populateDOM(single_pokemon) {
     pokeCard.appendChild(pokeFront)
     pokeCard.appendChild(pokeBack)
     pokeScene.appendChild(pokeCard)
-        //pokeDiv.appendChild(height)
     mainArea.appendChild(pokeScene)
+        //pokeDiv.appendChild(height)
 
     pokeCard.addEventListener('click', function() {
         pokeCard.classList.toggle('is-flipped');
