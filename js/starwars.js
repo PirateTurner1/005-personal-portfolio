@@ -1,5 +1,5 @@
 import { films } from '../assets/films.js'
-import { people } from '../assets/people.js'
+import { people } from '../Assets/people.js'
 
 console.log('i am javaScript running in your page!')
 
@@ -133,3 +133,5 @@ function deleteNode() {
 
 
     console.log(femaleCharacters)
+
+    console.log(othercharacters)
