@@ -3,7 +3,7 @@
     const myJson = await response.json()
 }*/
 
-// https://raw.github
+//https://github.com/fanzeyi/pokemon.json/blob/master/images/001.png
 
 class pokemon {
     constructor(id, name) {
@@ -12,28 +12,41 @@ class pokemon {
     }
 }
 
-const Thoremon = new pokemon(1000, 'Thoremon')
+const Turnmon = new pokemon(1000, 'Turnmon')
 
-const newButton = document.querySelector('#newButton')
+//adding pokemon by the numbers with an alert
+const newButton = document.querySelector('#newPokemon')
 newButton.addEventListener('click', function() {
-    let pokeID = promt("please enter a Pokemon ID")
+    let pokeID = prompt("please enter a Pokemon ID")
     if (pokeID > 0 && pokeID <= 807) {
         getAPIData(`https://pokeapi.co/api/v2/pokemon/${pokeID}`)
             .then(result => {
-                populateDOM(results)
+                populateDOM(result)
             })
     } else {
         alert('there are no Pokemon with that ID. Choose another one')
-    } //populateDOM(thoremon)
+    } //populateDOM(Turnmon)
 })
 
+//reusable async functions to fetch the url data
 async function getPokemonData(url) {
     try {
-        const response = await getPokemonData('https://pokeapi.co/api/v2/pokemon/')
+        const response = await response(url) //getPokemonData('https://pokeapi.co/api/v2/pokemon/')
         const data = await response.json()
         return data
     } catch (error) {
         console.error(error)
+    }
+}
+
+//A function to sort out number of pokemon
+function getPokeNumber(charURL) {
+    let end = charURL.lastIndexOf('/')
+    let charID = charURL.substring(end - 2, end)
+    if (charID.indexOf('/') !== -1) {
+        return `00${charID.slice(1, 2)}`
+    } else {
+        return `0${charID}`
     }
 }
 
@@ -43,75 +56,78 @@ const theData = gatAPIData('https://pokeapi.co/api/v2/pokemon/').then(data => {
         getAPIData(pokemon.url)
             .then(pokeData => {
                 populateDom(pokeData)
-                populateDom(Thoremon)
+                populateDom(Turnmon)
             })
     }
 })
-
 console.log(theData)
+
+
 let mainArea = document.querySelector('main')
 
+//populating the DOM and filling in the content
 function populateDOM(single_pokemon) {
 
     let pokeScene = document.createElement('div')
     let pokeCard = document.createElement('div')
     let pokeFront = document.createElement('div')
     let pokeBack = document.createElement('div')
-        //let pokeDiv = document.createElement('div')
-        //let height = document.createElement('p')
+    let pokeDiv = document.createElement('div')
+        /* //
+         //let height = document.createElement('p')*/
 
     fillCardFront(pokeFront, single_pokemon)
     fillCardBack(pokeBack, single_pokemon)
 
     pokeScene.setAttribute('class', 'scene')
     pokeCard.setAttribute('class', 'card')
-        //pokeDiv.setAttribute('class', 'CharDivs')
+        /*//pokeDiv.setAttribute('class', 'CharDivs')*/
 
     pokeCard.appendChild(pokeFront)
     pokeCard.appendChild(pokeBack)
     pokeScene.appendChild(pokeCard)
-    mainArea.appendChild(pokeScene)
-        //pokeDiv.appendChild(height)
 
+    mainArea.appendChild(pokeScene)
+        /*//pokeDiv.appendChild(height)*/
+
+    //making the card flip and do its thing
     pokeCard.addEventListener('click', function() {
         pokeCard.classList.toggle('is-flipped');
     });
 }
 
+//the front of the card area
 function fillCardFront(pokeFront, data) {
     pokeFront.setAttribute('class', 'card_face card_face--front')
     let name = document.createElement('p')
     let pic = document.createElement('img')
     pic.setAttribute('class', 'picDivs')
-    let pokeNum = getPokeNumber(data.id)
+    pic.src = `https://github.com/fanzeyi/pokemon.json/blob/master/images/${pokeNum}.png`
+    let pokeNum = getPokeNumber(single_pokemon.id) //let pokeNum = getPokeNumber(data.id)
+        //name.textContent = capitalize(`${single_pokemon.name}`)
     pokeFront.appendChild(name)
-    name.textContent = `${data.name} height: ${data.height}`
-
-    pic.src = `../Assets/images/${pokeNum}.png`
-        //pokeDiv.appendChild(pic)
-        //pokeDiv.appendChild(name)
     pokeFront.appendChild(pic)
+
+    /*name.textContent = `${data.name} height: ${data.height}`
+    pic.src = `../Assets/images/${pokeNum}.png`*/
+    //pokeDiv.appendChild(pic)
+    //pokeDiv.appendChild(name)
+
 }
 
+//the back of the card area
 function fillCardBack(pokeBack, data) {
     pokeBack.setAttribute('class', 'card_face card_face--back')
     let pokeOrder = document.createElement('p')
     let pokeHP = document.createElement('h5')
-    pokeOrder.textContent = `#${data.id} ${data.name[1,2].toUpperCase()}`
-    pokeHP.textContent = data.stats[0].base_stat
+        //pokeId.textContent = `ID: ${single_pokemon.id}`
+    pokeOrder.textContent = `#${data.id} ${data.name[0].toUpperCase()}${data.name.slice(1)}`
+        //pokeHP.textContent = data.stats[0].base_stat
     pokeBack.appendChild(pokeOrder)
     pokeBack.appendChild(pokeHP)
 }
 
-/*function getPokeNumber(charURL) {
-    let end = charURL.lastIndexOf('/')
-    let charID = charURL.substring(end - 2, end)
-    if (charID.indexOf('/') !== -1) {
-        return `00${charID.slice(1, 2)}`
-    } else {
-        return `0${charID}`
-    }
-}*/
+
 
 function getPokeNumber(id) {
     if (id < 10) return `00#{id}`
