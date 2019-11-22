@@ -128,6 +128,7 @@ function deleteNode() {
     const maleCharacters = people.filter(person => person.gender === 'male')
     const femaleCharacters = people.filter(person => person.gender === 'female')
     const otherCharacters = people.filter(person => person.gender !== 'female' && person.gender !== 'male')
+    }
 
     console.log(maleCharacters)
 
