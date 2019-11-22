@@ -16,13 +16,13 @@ class pokemon {
 
 async function getAPIData(url) {
     try {
-      const response = await fetch(url)
-      const data = await response.json()
-      return data
+        const response = await fetch(url)
+        const data = await response.json()
+        return data
     } catch (error) {
-      console.error(error)
+        console.error(error)
     }
-  }
+}
 
 const Piratemon = new pokemon(808, "Piratemon", 150, [{ type: { name: "water" } }])
 
@@ -40,11 +40,21 @@ newButton.addEventListener('click', function() {
     } //populateDOM(Piratemon)
 })
 
+async function getHp(pokemonID) {
+    getAPIData(`https://pokeapi.co/api/v2/pokemon/${pokeID}`).then(pokemon => {
+        const HP = pokemon.stats.find(Element => {
+            return Element.stat.name === "hp"
+        })
+        return HP.base_stat
+    })
+}
+
 //reusable async functions to fetch the url data
 async function getPokemonData(url) {
     try {
         const response = await fetch(url) //getPokemonData('https://pokeapi.co/api/v2/pokemon/')
         const data = await response.json()
+        data.hp = HP
         return data;
     } catch (error) {
         console.error(error)
@@ -52,25 +62,18 @@ async function getPokemonData(url) {
 }
 
 // now use the return async data!
-const theData = getAPIData("https://pokeapi.co/api/v2/pokemon/")
+const theData = getAPIData('https://pokeapi.co/api/v2/pokemon/?limit=25')
     .then(data => {
         for (const pokemon of data.results) {
             getAPIData(pokemon.url)
                 .then(pokeData => {
                     populateDOM(pokeData)
-                    populateDOM(Piratemon)
+                        // populateDOM(Piratemon)
                 })
         }
     })
 
-const theData2 = getAPIData("https://pokeapi.co/api/v2/pokemon/?limit=20")
-    .then(data => {
-        for (const pokemon of data.results) {
-            getAPIData(pokemon.url).then(pokeData2 => {
-                populateDOM(pokeData2)
-            })
-        }
-    })
+
 
 //A function to sort out number of pokemon
 /*function getPokeNumber(charURL) {
@@ -136,14 +139,13 @@ function fillCardFront(pokeFront, data) {
     let pic = document.createElement('img')
     pic.setAttribute('class', 'picDivs')
     let pokeNum = getPokeNumber(data.id)
-    //https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/images/001.png
+        // this is the actual site or url: https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/images/001.png
     pic.src = `https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/images/${pokeNum}.png`
-    
-        //let pokeNum = getPokeNumber(data.id)
-        //name.textContent = capitalize(`${single_pokemon.name}`)
     let pokeId = document.createElement("p")
     pokeFront.appendChild(name)
     pokeFront.appendChild(pic)
+        //let pokeNum = getPokeNumber(data.id)
+        //name.textContent = capitalize(`${single_pokemon.name}`)
 
     /*name.textContent = `${data.name} height: ${data.height}`
     pic.src = `../Assets/images/${pokeNum}.png`*/
@@ -156,12 +158,16 @@ function fillCardFront(pokeFront, data) {
 function fillCardBack(pokeBack, data) {
     pokeBack.setAttribute('class', 'card_face card_face--back')
     let pokeOrder = document.createElement('p')
+
     let types = document.createElement("div")
     let pokeHP = document.createElement('h5')
+
     let pokeId = document.createElement('p')
     pokeId.textContent = `ID: ${data.id}`
     pokeOrder.textContent = `#${data.id} ${data.name[0].toUpperCase()}${data.name.slice(1)}`
-        //pokeHP.textContent = data.stats[0].base_stat
+    pokeHP.textContent = data.stats[0].base_stat
     pokeBack.appendChild(pokeOrder)
     pokeBack.appendChild(pokeHP)
+    pokeBack.appendChild(types)
+    pokeBack.appendChild(pokeId)
 }
