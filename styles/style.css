@@ -36,7 +36,7 @@
         position: fixed;
         background-color: var(--seahawk-green);
         width: 100%;
-        hieght: 60vh;
+        hieght: 40vh;
         box-shadow: 0 2px 0 rgba(0, 0, 0, 1);
     }
     
@@ -44,9 +44,9 @@
         display: flex;
         justify-content: space-around;
         background-color: green;
-        width: 550px;
-        padding: .5rem;
-        font-size: .5em;
+        width: 670px;
+        padding: .4rem;
+        font-size: 18px;
     }
     
     #navlist a {
@@ -123,13 +123,22 @@
     }
     
     .projects-grid {
-        display: grid;
+        /*display: grid;*/
+        display: flex;
+       
+        flex-direction: column;
         grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
         grid-gap: 4rem;
+        float:left;
         width: 100%;
         max-width: 120px;
         margin: 0 auto;
-        margin-bottom: 6rem;
+        margin-bottom: 50px;
+        align-items: center;
+        margin-bottom: 50px;
+        padding: 20px;
+        width: 165px;
+        height: 200px;
     }
     
     .project-image {
@@ -150,7 +159,7 @@
         background: rgba(0, 0, 0, 0.596);
         position: relative;
         width: 288px;
-        bottom: 61px;
+        bottom: 50px;
         padding: 15px;
     }
     
