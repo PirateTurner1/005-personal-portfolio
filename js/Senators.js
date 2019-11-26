@@ -24,15 +24,27 @@ const theData = getAPIData('Senators.json')
         democrats = filterSenators(simpleSenators, "D")
         independents = filterSenators(simpleSenators, "ID")
         console.log(sortSenatorsByAge(simpleSenators))
-        populateDOM(allSenators)
-
+        populateDOM(simpleSenators)
     })
-    //mapping them out...
+
+//button option
+/*
+let mainArea = document.querySelector('main')
+ let mainButton = document.querySelector('button')
+ mainButton.textContent = 'button'
+ mainArea.appendChild(mainButton)
+ mainButton.addEventListener('click',function(){
+     console.log(allSenators)
+ })
+ */
+
+
+//mapping them out...
 function simpleMap(arr) { //makeSimpleMap(allOfThem) "function"
     let results = arr.map(senator => {
         return {
             id: senator.id,
-            name: `${senator.first_name} ${senator.Lastname}`,
+            name: `${senator.first_name} ${senator.Last_name}`,
             party: senator.party,
             //age: `${calculate_age(new Data(senator.date_of_birth))}`,
             gender: senator.gender,
@@ -43,8 +55,8 @@ function simpleMap(arr) { //makeSimpleMap(allOfThem) "function"
 }
 
 //filter examples... 
-function filterSenators(simpleList, party) {
-    return simpleList.filter(senator => senator.party === party) // the partyAffiliation
+function filterSenators(simpleList, partyAffiliation) {
+    return simpleList.filter(senator => senator.party === partyAffiliation) // the partyAffiliation
 }
 
 //reducing examples...
@@ -77,8 +89,8 @@ function sortSenatorsByAge(senatorList) {
 
 const container = document.querySelector('.container')
     // populating the DOM
-function populateDOM(senator_array) {
-    senator_array.forEach(senator => {
+function populateDOM(senator_arr) {
+    senator_arr.forEach(senator => {
         let card = document.createElement('div')
         card.setAttribute('class', 'card')
 
@@ -86,21 +98,21 @@ function populateDOM(senator_array) {
         cardImage.setAttribute('class', 'card-Image')
 
         let figure = document.createElement('figure')
-        figure.setAttribute('class', 'image')
+        figure.setAttribute('class', 'image is-4by4')
 
         let figureImage = document.createElement('img')
         figureImage.src = `https://www.congress.gov/img/member/${senator.id.toLowerCase()}_200.jpg`
-        figureImage.alt = 'placeholder image'
+        figureImage.alt = 'placeholder image' //'./images/Doug_Jones-2017.png'
 
         figure.appendChild(figureImage)
         cardImage.appendChild(figure)
         card.appendChild(cardImage)
-            //card.appendChild(cardContent(senator))
+        card.appendChild(cardContent(senator))
         container.appendChild(card)
     })
 }
 
-function CardContent(senator) {
+function cardContent(senator) {
     let cardContent = document.createElement('div')
     cardContent.setAttribute('class', 'card-content')
 
@@ -113,44 +125,59 @@ function CardContent(senator) {
     let figure = document.createElement('figure')
     figure.setAttribute('class', 'image is-48x48')
 
-    let image = document.createElement('img')
+    //party affiliation colors 
+    let party = document.createElement("div");
+    party.textContent = senator.party;
+    if (senator.party === "R") {
+        party.setAttribute("class", "republican partyColor");
+    } else if (senator.party === "D") {
+        party.setAttribute("class", "democrat partyColor");
+    } else if (senator.party === "ID") {
+        party.setAttribute("class", "independent partyColor");
+    }
+
+    /*let image = document.createElement('img')
     img.src = `https://bulma.io/images/placeholders/96x96.png`
     img.alt = 'Placeholder image'
+    */
 
     let mediaContent = document.createElement('div')
     mediaContent.setAttribute('class', 'media-content')
 
     let titleP = document.createElement('p')
-    titleP.setAttribute('class', 'title is-4')
+    titleP.setAttribute('class', 'title is-5')
     titleP.textContent = `${senator.first_name} ${senator.last_name}`
 
     let subtitleP = document.createElement('p')
     subtitleP.setAttribute('class', 'subtitle is-6')
     subtitleP.textContent = `${senator.state_rank}`
 
-    let content = document.createElement("div")
-    content.setAttribute("class", "content")
-    content.textContent = senator.info
+    let contentDiv = document.createElement("div")
+    contentDiv.setAttribute("class", "contentDiv")
+    contentDiv.textContent = senator.info
+
+    let contentBreak = document.createElement('p')
+
+    let age = document.createElement("p")
+    age.textContent = `Age: ${senator.age}` // ${calculate.age(new date(senator.date_of_birth))}
 
     let votes = document.createElement("div")
     votes.setAttribute("class", "votes-flex")
-        // let totalVotes = document.createElement("p");
-        // totalVotes.textContent = `Total: ${senator.total_votes}`;
-
-    let age = document.createElement("p")
-    age.textContent = `Age: ${senator.age}`
+    let totalVotes = document.createElement("p")
+    totalVotes.textContent = `Total: ${senator.total_votes}`
 
     mediaContent.appendChild(titleP)
     mediaContent.appendChild(subtitleP)
-    figure.appendChild(img)
+    figure.appendChild(party)
 
     mediaLeft.appendChild(figure)
     media.appendChild(mediaLeft)
     media.appendChild(mediaContent)
-
-    content.appendChild(age)
+    contentDiv.appendChild(contentBreak)
+    contentDiv.appendChild(age)
     cardContent.appendChild(media)
-    cardContent.appendChild(content)
+    cardContent.appendChild(contentDiv)
+
     return cardContent
 }
 
