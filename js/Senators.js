@@ -24,7 +24,7 @@ const theData = getAPIData('Senators.json')
         democrats = filterSenators(simpleSenators, "D")
         independents = filterSenators(simpleSenators, "ID")
         console.log(sortSenatorsByAge(simpleSenators))
-        populateDOM(simpleSenators)
+        populateDOM(allSenators)
     })
 
 //button option
@@ -44,7 +44,7 @@ function simpleMap(arr) { //makeSimpleMap(allOfThem) "function"
     let results = arr.map(senator => {
         return {
             id: senator.id,
-            name: `${senator.first_name} ${senator.Last_name}`,
+            name: `${senator.first_name} ${senator.last_name}`,
             party: senator.party,
             //age: `${calculate_age(new Data(senator.date_of_birth))}`,
             gender: senator.gender,
@@ -159,7 +159,7 @@ function cardContent(senator) {
     let contentBreak = document.createElement('p')
 
     let age = document.createElement("p")
-    age.textContent = `Age: ${senator.age}` // ${calculate.age(new date(senator.date_of_birth))}
+    age.textContent = `Age: ${calculate_age(new Date(senator.date_of_birth))}` //or ${senator.age} 
 
     let votes = document.createElement("div")
     votes.setAttribute("class", "votes-flex")
@@ -169,7 +169,6 @@ function cardContent(senator) {
     mediaContent.appendChild(titleP)
     mediaContent.appendChild(subtitleP)
     figure.appendChild(party)
-
     mediaLeft.appendChild(figure)
     media.appendChild(mediaLeft)
     media.appendChild(mediaContent)
