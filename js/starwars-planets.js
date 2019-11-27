@@ -24,7 +24,7 @@ planets.forEach(planet => {
     mainArea.appendChild(planetDiv)
 })
 
-function getCharNumber(charURL) {
+function getCharNumber(planet.url) {
     let end = charURL.lastIndexOf('/')
     let charID = charURL.substring(end - 2, end)
     if (charID.indexOf('/') !== -1) {

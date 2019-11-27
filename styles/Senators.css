@@ -1,3 +1,54 @@
+html {
+    font-family: 'Merriweather Sans', sans-serif;
+    box-sizing: border-box;
+}
+
+header {
+    display: flex;
+}
+
+#navbar {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    position: fixed;
+    background-color: var(--seahawk-green);
+    width: 100%;
+    hieght: 40vh;
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 1);
+}
+
+#navlist {
+    display: flex;
+    justify-content: space-around;
+    background-color: green;
+    width: 670px;
+    padding: .4rem;
+    font-size: 18px;
+}
+
+#navlist a {
+    display: block;
+    font-size: 2rem;
+    padding: .5rem;
+}
+
+#navlist a:hover {
+    background-color: #07d16c;
+    padding: .5rem;
+}
+
+li {
+    list-style: none;
+    color: #fff;
+    font-size: 2rem;
+}
+
+a {
+    text-decoration: none;
+    color: #f0f0f0;
+}
+
 .container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
