@@ -15,7 +15,7 @@ planets.forEach(planet => {
     //planetPic.onerror = `this.src='../images/starwarsposter.png'`
     planetPic.addEventListener('error', (event) => {
         let badImage = event.target
-        badImage.src = '../images/starwarsposter.png' //placeholder for un-found images
+        badImage.src = './Assets/images/StarwarsPoster.png' //placeholder for un-found images
     })
 
     planetDiv.appendChild(planetName)

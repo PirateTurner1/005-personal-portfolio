@@ -1,7 +1,7 @@
 import { people } from "../Assets/people.js"
-import { planets } from "../Assets/planets.js"
-import { species } from "../Assets/species.js"
-import { starships } from "../Assets/starships.js"
+
+
+
 import { vehicles } from "../Assets/vehicles.js"
 
 let mainArea = document.querySelector("main")
