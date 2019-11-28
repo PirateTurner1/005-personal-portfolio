@@ -14,15 +14,16 @@ header {
     position: fixed;
     background-color: var(--seahawk-green);
     width: 100%;
-    hieght: 40vh;
-    box-shadow: 0 2px 0 rgba(0, 0, 0, 1);
+    height: 8vh;
+    <!-- hieght is 60vh;
+    -->box-shadow: 0 2px 0 rgba(0, 0, 0, 1);
 }
 
 #navlist {
     display: flex;
     justify-content: space-around;
     background-color: green;
-    width: 670px;
+    width: 170px;
     padding: .4rem;
     font-size: 18px;
 }
@@ -47,6 +48,10 @@ li {
 a {
     text-decoration: none;
     color: #f0f0f0;
+}
+
+div.keepOpen {
+    clear: both;
 }
 
 .container {

@@ -100,11 +100,6 @@ function populateDOM(senator_arr) {
         let figure = document.createElement('figure')
         figure.setAttribute('class', 'image is-4by4')
 
-        /*let image = document.createElement('img')
-           img.src = `https://bulma.io/images/placeholders/96x96.png`
-           img.alt = 'Placeholder image'
-           */
-
         let figureImage = document.createElement('img')
         figureImage.src = `https://www.congress.gov/img/member/${senator.id.toLowerCase()}_200.jpg`
         figureImage.alt = 'placeholder image' //'./images/Doug_Jones-2017.png'
@@ -128,17 +123,17 @@ function cardContent(senator) {
     mediaLeft.setAttribute('class', 'media-left')
 
     let figure = document.createElement('figure')
-    figure.setAttribute('class', 'image is-54x54')
+    figure.setAttribute('class', 'image is-48x48')
 
     //party affiliation colors 
-    let party = document.createElement("div")
-    party.textContent = senator.party
+    let party = document.createElement("div");
+    party.textContent = senator.party;
     if (senator.party === "R") {
-        party.setAttribute("class", "republican partyColor")
+        party.setAttribute("class", "republican partyColor");
     } else if (senator.party === "D") {
-        party.setAttribute("class", "democrat partyColor")
+        party.setAttribute("class", "democrat partyColor");
     } else if (senator.party === "ID") {
-        party.setAttribute("class", "independent partyColor")
+        party.setAttribute("class", "independent partyColor");
     }
 
     let mediaContent = document.createElement('div')
@@ -186,8 +181,9 @@ function calculate_age(dob) {
 
     return Math.abs(age_dt.getUTCFullYear() - 1970)
 }
-// trying to replace the placeholder error image
-/*Image.addEventListener('error', (event) => {
+
+/*pic.onerror = `this.src='./Assets/images/Doug_Jones_2017.jpg'`
+pic.addEventListener('error', (event) => {
     let badImage = event.target
-    badImage.src = './assets/images/Doug_Jones_2017.jpg'
+    badImage.src = './Assets/images/Doug_Jones_2017.jpg' //placeholder for un-found images
 })*/
