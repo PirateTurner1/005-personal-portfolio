@@ -1,29 +1,33 @@
-import { people } from "../Assets/people.js"
+import { people } from '../Assets/people.js'
 
-let mainArea = document.querySelector("main")
-let nav = document.querySelector("nav")
-let home = document.createElement("button")
-let filmBtn = document.createElement("button")
-let peopleBtn = document.createElement("button")
-let planetsBtn = document.createElement("button")
-let speciesBtn = document.createElement("button")
-let starshipsBtn = document.createElement("button")
-let vehiclesBtn = document.createElement("button")
+const maleCharacters = people.filter(person => person.gender === 'male')
+const femaleCharacters = people.filter(person => person.gender === 'female')
+const otherCharacters = people.filter(
+  person => person.gender != 'male' && person.gender != 'female',
+)
 
-home.textContent = "HOME"
-filmBtn.textContent = "FILMS"
-peopleBtn.textContent = "PEOPLE"
-planetsBtn.textContent = "PLANETS"
-speciesBtn.textContent = "SPECIES"
-starshipsBtn.textContent = "STARSHIPS"
-vehiclesBtn.textContent = "VEHICLES"
+let mainArea = document.querySelector('main')
+let nav = document.querySelector('nav')
+let home = document.createElement('button')
+let filmBtn = document.createElement('button')
+let peopleBtn = document.createElement('button')
+let planetsBtn = document.createElement('button')
+let speciesBtn = document.createElement('button')
+let starshipsBtn = document.createElement('button')
+let vehiclesBtn = document.createElement('button')
 
+home.textContent = 'HOME'
+filmBtn.textContent = 'FILMS'
+peopleBtn.textContent = 'PEOPLE'
+planetsBtn.textContent = 'PLANETS'
+speciesBtn.textContent = 'SPECIES'
+starshipsBtn.textContent = 'STARSHIPS'
+vehiclesBtn.textContent = 'VEHICLES'
 
-
-let filterArea = document.querySelector(".filters")
+//let filterArea = document.querySelector(".filters")
 
 console.log('i am javaScript running in your page!')
-    /*
+/*
     const justNames = people.map(person => {
         return {
             name: person.name,
@@ -33,7 +37,8 @@ console.log('i am javaScript running in your page!')
     }) console.log(justNames)*/
 
 //populating the DOM
-people.forEach((person) => {
+function populateDOM(someArray) {
+    someArray.forEach(person => {
     let personDiv = document.createElement('div')
     let name = document.createElement('h3')
     let gender = document.createElement('p')
@@ -47,52 +52,54 @@ people.forEach((person) => {
     name.textContent = person.name
     gender.textContent = `gender: ${person.gender}`
     pic.src = `https://starwars-visualguide.com/assets/img/characters/${charNum}.jpg`
-        // https://starwars-visualguide.com/assets/img/characters/1.jpg  //use this as backup, this picture hs worked before!
+    // https://starwars-visualguide.com/assets/img/characters/1.jpg  //use this as backup, this picture hs worked before!
     personDiv.appendChild(name)
     personDiv.appendChild(gender)
     personDiv.appendChild(pic)
     mainArea.appendChild(personDiv)
 
     pic.onerror = `this.src='./Assets/images/StarwarsPoster.png'`
-    pic.addEventListener('error', (event) => {
-        let badImage = event.target
-        badImage.src = './Assets/images/StarwarsPoster.png' //placeholder for un-found images
+    pic.addEventListener('error', event => {
+      let badImage = event.target
+      badImage.src = './Assets/images/StarwarsPoster.png' //placeholder for un-found images
     })
-})
-
-function getCharNumber(charURL) {
-    let end = charURL.lastIndexOf('/')
-    let charID = charURL.substring(end - 2, end)
-    if (charID.indexOf('/') !== -1) {
-        return charID.slice(1, 2)
-    } else {
-        return charID
-    }
+  })
 }
 
-home.addEventListener("click", () => { document.location.href = "index.html" })
+function getCharNumber(charURL) {
+  let end = charURL.lastIndexOf('/')
+  let charID = charURL.substring(end - 2, end)
+  if (charID.indexOf('/') !== -1) {
+    return charID.slice(1, 2)
+  } else {
+    return charID
+  }
+}
 
-var males = people.filter(person => person.gender === "male")
-const maleCharacters = people.filter(person => person.gender === "male");
-const femaleCharacters = people.filter(person => person.gender === "female");
-const otherCharacters = people.filter(person => person.gender != "male" && person.gender != "female")
+home.addEventListener('click', () => {
+  document.location.href = 'index.html'
+})
+
+
 const allDivs = Array.from(document.querySelectorAll('div'))
 console.log(allDivs)
 
 const mainHeader = document.querySelector('header')
 
-let maleButton = document.createElement('button')
-maleButton.textContent = "MALES"
-maleButton.setAttribute("class", "male")
-    //filterArea.appendChild(maleButton)
+let maleButton = document.querySelector('#maleCharacter')
+maleButton.textContent = 'MALES'
+maleButton.setAttribute('class', 'male')
+//filterArea.appendChild(maleButton)
 
 /*const maleButton = document.querySelector('#maleCharacter')*/
 maleButton.addEventListener('click', () => {
-    mainArea.textContent = ""
-    filterArea.textContent = ""
-    deleteNode()
-    showCharArray(maleCharacters)
-        /* femaleCharacters.forEach((character => {
+  mainArea.textContent = ''
+  //filterArea.textContent = ""
+  deleteNode()
+  populateDOM(maleCharacters)
+
+  //showCharArray(maleCharacters)
+  /* femaleCharacters.forEach((character => {
             let matchedDiv = allDivs.find((oneDiv) => {
                 return oneDiv.firstChild.textContent === character.name
             })
@@ -107,14 +114,14 @@ maleButton.addEventListener('click', () => {
 })
 console.log(maleCharacters)
 
-let femaleButton = document.createElement('button')
-femaleButton.textContent = "FEMALES"
-femaleButton.setAttribute("class", "female")
-    //filterArea.appendChild(femaleButton)
+let femaleButton = document.querySelector('#femaleButton')
+femaleButton.textContent = 'FEMALES'
+femaleButton.setAttribute('class', 'female')
+//filterArea.appendChild(femaleButton)
 femaleButton.addEventListener('click', () => {
-    deleteNode()
-    showCharArray(femaleCharacters)
-        /* maleCharacters.forEach((character) => {
+  deleteNode()
+  populateDOM(femaleCharacters)
+  /* maleCharacters.forEach((character) => {
              let matchedDiv = allDivs.find((oneDiv) => {
                  return oneDiv.firstChild.textContent === Character.name
              })
@@ -131,29 +138,25 @@ femaleButton.addEventListener('click', () => {
 })
 console.log(femaleCharacters)
 
-let othersButton = document.createElement('button')
-othersButton.textContent = "OTHERS"
-othersButton.setAttribute("class", "other")
-    //filterArea.appendChild(othersButton)
+let othersButton = document.querySelector('#otherButton')
+othersButton.textContent = 'OTHERS'
+othersButton.setAttribute('class', 'other')
+//filterArea.appendChild(othersButton)
 
 othersButton.addEventListener('click', () => {
-    deleteNode()
-    showCharArray(otherCharacters)
+  deleteNode()
+  populateDOM(otherCharacters)
 })
 console.log(otherCharacters)
 
 function deleteNode() {
-    while (mainArea.firstChild) {
-        mainArea.removeChild(mainArea.firstChild)
-    }
+  while (mainArea.firstChild) {
+    mainArea.removeChild(mainArea.firstChild)
+  }
 
-    mainHeader.appendChild(maleButton)
-    mainHeader.appendChild(femaleButton)
-    mainHeader.appendChild(OthersButton)
-
-    const maleCharacters = people.filter(person => person.gender === 'male')
-    const femaleCharacters = people.filter(person => person.gender === 'female')
-    const otherCharacters = people.filter(person => person.gender !== 'female' && person.gender !== 'male')
+  mainHeader.appendChild(maleButton)
+  mainHeader.appendChild(femaleButton)
+  mainHeader.appendChild(othersButton)
 }
 
 /*function showCharArray(characters) {
