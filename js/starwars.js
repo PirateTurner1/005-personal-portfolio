@@ -36,6 +36,7 @@ console.log('i am javaScript running in your page!')
         }
     }) console.log(justNames)*/
 
+//populating the DOM
 people.forEach((person) => {
     let personDiv = document.createElement('div')
     let name = document.createElement('h3')
@@ -89,6 +90,7 @@ maleButton.textContent = "MALES"
 maleButton.setAttribute("class", "male")
     //filterArea.appendChild(maleButton)
 
+const maleButton = document.querySelector('#maleCharacter')
 maleButton.addEventListener('click', () => {
     mainArea.textContent = ""
     filterArea.textContent = ""
@@ -156,4 +158,21 @@ function deleteNode() {
     const maleCharacters = people.filter(person => person.gender === 'male')
     const femaleCharacters = people.filter(person => person.gender === 'female')
     const otherCharacters = people.filter(person => person.gender !== 'female' && person.gender !== 'male')
+}
+
+function showCharArray(characters) {
+    characters.forEach((character) => {
+        let matchedDiv = allDivs.find((oneDiv) => {
+            return oneDiv.firstChild.textContent === character.name
+        })
+        if (matchedDiv.setAttribute('style') === "display: none;") {
+            otherCharacters()
+            console.log('all male characters are gone')
+        } else characters.forEach(character => {
+            let matchedDiv = allDivs.find(oneDiv => {
+                return oneDiv.firstChild.textContent === character.name;
+            })
+            matchedDiv.setAttribute("style", "display: revert")
+        })
+    })
 }

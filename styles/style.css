@@ -126,13 +126,13 @@
         background-color: gray;
     }
     
-    .projects-grid {
+    .Projects-grid {
         display: flex;
         grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
         grid-gap: 4rem;
         width: 100%;
         max-width: 1280px;
-        margin: 0 auto;
+        margin: 1.5rem;
         margin-bottom: 6rem;
     }
     
@@ -146,6 +146,10 @@
         weight: 320px;
         margin-top: 30px;
         padding: 0 auto;
+    }
+    
+    .project-tiles {
+        margin: 1rem;
     }
     
     .project-title {
