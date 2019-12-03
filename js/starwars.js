@@ -1,9 +1,5 @@
 import { people } from "../Assets/people.js"
 
-
-
-import { vehicles } from "../Assets/vehicles.js"
-
 let mainArea = document.querySelector("main")
 let nav = document.querySelector("nav")
 let home = document.createElement("button")
@@ -90,7 +86,7 @@ maleButton.textContent = "MALES"
 maleButton.setAttribute("class", "male")
     //filterArea.appendChild(maleButton)
 
-const maleButton = document.querySelector('#maleCharacter')
+/*const maleButton = document.querySelector('#maleCharacter')*/
 maleButton.addEventListener('click', () => {
     mainArea.textContent = ""
     filterArea.textContent = ""
@@ -160,7 +156,7 @@ function deleteNode() {
     const otherCharacters = people.filter(person => person.gender !== 'female' && person.gender !== 'male')
 }
 
-function showCharArray(characters) {
+/*function showCharArray(characters) {
     characters.forEach((character) => {
         let matchedDiv = allDivs.find((oneDiv) => {
             return oneDiv.firstChild.textContent === character.name
@@ -175,4 +171,4 @@ function showCharArray(characters) {
             matchedDiv.setAttribute("style", "display: revert")
         })
     })
-}
+}*/
